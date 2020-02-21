@@ -46,6 +46,8 @@ class Player{
             }
 	    });
 
+	    this.skipQueue = [];
+	    this.processSkipQueue();
 	    this.skipTime = SKIP_DURATION_SEC;
 	    this.speedIncrement = 0.125;
 	    this.minSpeed = 0.5;
@@ -106,22 +108,26 @@ class Player{
         this.setTime(time);
     }
 
-    skip(direction){
-        let expectedTime = this.getTime();
-    	if (direction === 'forwards') {
-            expectedTime += this.skipTime;
+    skip(direction) {
+        let offset = 0;
+        if (direction === 'forwards') {
+            offset = this.skipTime;
         } else if ((direction === 'backwards') || direction === 'back') {
-            expectedTime -= this.skipTime;
+            offset = -this.skipTime;
         } else {
             throw ('Skip requires a direction: forwards or backwards')
         }
-        this.setTime(expectedTime);
-        
-        // compensate for weird video setTime bug
-        if ((expectedTime > 1) && (this.getTime() === 0)) {
-            console.error('Skipped too far back');
-            setTimeout(() => this.setTime(expectedTime), 50);
-        }
+
+        this.skipQueue.push(() => {
+            const time = this.getTime();
+            if (time === 0) {
+                // compensate for weird video setTime bug
+                return false;
+            } else {
+                this.setTime(time + offset);
+                return true;
+            }
+        });
     }
 
     getStatus(){
@@ -164,7 +170,18 @@ class Player{
     onPlayPause(callback) {
         this.onPlayPauseCallback = callback;
     }
-    
+
+    processSkipQueue() {
+        const nextFunc = this.skipQueue[0];
+        if (nextFunc) {
+            const success = nextFunc();
+            if (success) {
+                this.skipQueue.shift();
+            }
+        }
+        setTimeout(() => this.processSkipQueue(), 200);
+    }
+
     getName() {
         if (this.driver.getName) {
             return this.driver.getName();;
