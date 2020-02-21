@@ -2,6 +2,8 @@ import HTML5_AUDIO from './html5-audio';
 import HTML5_VIDEO from './html5-video';
 import YOUTUBE from './youtube';
 
+const SKIP_DURATION_SEC = 5;
+
 /*
 
 options:
@@ -43,7 +45,8 @@ class Player{
     	        this.onPlayPauseCallback(this.getStatus());
             }
 	    });
-	    this.skipTime = 1.5;
+
+	    this.skipTime = SKIP_DURATION_SEC;
 	    this.speedIncrement = 0.125;
 	    this.minSpeed = 0.5;
 	    this.maxSpeed = 2;
