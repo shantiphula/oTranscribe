@@ -88,7 +88,6 @@ class Player{
 	}
 
     play(){
-    	this.skip('backwards');
         this.driver.play();
     }
 
