@@ -1,0 +1,4 @@
+// Hide editor tool panel to prevent from accidentally injecting rich style into the editing text.
+.text-panel {
+    display: none !important;
+}

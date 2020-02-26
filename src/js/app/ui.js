@@ -131,11 +131,17 @@ export function addKeyboardShortcut(key, fn) {
 export function keyboardShortcutSetup() {
 
     const shortcuts = getSettings().keyboardShortcuts.shortcuts;
-    
+
+    /* change by shantiphula, DISABLED CODE:
+       (to prevent from accidentally injecting rich style into the editing text.)
+
     addKeyboardShortcut( shortcuts.bold,      () => document.execCommand('bold',false,null)       );
     addKeyboardShortcut( shortcuts.italic,    () => document.execCommand('italic',false,null)     );
     addKeyboardShortcut( shortcuts.underline, () => document.execCommand('underline',false,null)  );
     addKeyboardShortcut( shortcuts.addTimestamp, () => insertTimestamp()                             );
+
+       change by shantiphula, END */
+
     addKeyboardShortcut( shortcuts.returnToStart, () => {
         const player = getPlayer();
         player.skipTo( 0 );
