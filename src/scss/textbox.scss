@@ -5,18 +5,15 @@
     font-size: 20px;
     line-height: 1.35;
     font-family: Arial;
-    padding: 5px;
-    margin: 50px auto;
-    width: 50%;
+    width: 100%;
     display: block;
     border: none;
-    padding: 50px 25% 5px 25%;
     outline: none;
     
     background: white;
     box-shadow: 0px 0px 10px #CCC;
-    width: 600px;
-    padding: 50px;
+    padding: 30px;
+    box-sizing: border-box;
     min-height: 700px;
     overflow-y: hidden;
     
@@ -53,5 +50,10 @@
     background: #eee;
     top: 36px;
     width: 100%;
+
+    padding-top: calc(55px - 36px);
+    padding-left: 50%;
+    padding-right: 24px;
+    box-sizing: border-box;
 }
 
