@@ -16,6 +16,7 @@ import { initBackup } from './backup';
 import { exportSetup } from './export';
 import importSetup from './import';
 import viewController from './view-controller';
+import { OtInitializerForPhula } from './phula/initializer';
 
 export default function init(){
     initBackup();
@@ -25,6 +26,7 @@ export default function init(){
     exportSetup();
     importSetup();
     initAutoscroll();
+    OtInitializerForPhula.perform();
 
     // this is necessary due to execCommand restrictions
     // see: http://stackoverflow.com/a/33321235
